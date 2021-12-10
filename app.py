@@ -8,7 +8,7 @@ import numpy as np
 st.title("Optical Character Recognition (OCR) :")
 st.text("Upload the Image :")
 
-uploaded_file = st.sidebar.fileuploader("Choose an image :", type =["jpg","png","jpeg"])
+uploaded_file = st.sidebar.fileuploader("Choose an image :", type =["jpg","png","jpeg"]) 
 if uploaded_file is not None: #if there is some file uploaded here, then do the following 
   img = Image.open(uploaded_file) #reads the file uploaded (similar to cv2.imread)
   st.write("") 
