@@ -4,6 +4,7 @@ import pytesseract
 from PIL import Image  #Python Imaging library #to open images 
 import numpy as np 
 
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 st.title("Optical Character Recognition (OCR) :")
 st.text("Upload the Image :")
 
