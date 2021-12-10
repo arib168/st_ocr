@@ -1,18 +1,24 @@
+#magic command to create a python file from ipynb
+#takes the entire code and puts it in app.py since streamlit runs only on COMMAND LINE INTERFACE(CLI)  using  .py files
+import numpy as np
 import streamlit as st 
 import cv2
 import pytesseract
-from PIL import Image  #Python Imaging library #to open images 
-import numpy as np 
-
+from PIL import Image   #python imaging library, to open image, streamlit doesn't support cv2 directly to display
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-st.title("Optical Character Recognition (OCR) :")
-st.text("Upload the Image :")
+st.set_option('deprecation.showfileUploaderEncoding', False)  #to warning ignore 
+st.title("OCR - Optical Character Recognition")  #print title and text
+st.text("Upload the Image")
+uploaded_file = st.sidebar.file_uploader("Choose an image...",  type=["jpg","png","jpeg"]) #we can upload these types of files
+if uploaded_file is not None: #only if file is uploaded it will show, else no error and nothing happens
 
-uploaded_file = st.sidebar.file_uploader("Choose an image :", type =["jpg","png","jpeg"]) 
-if uploaded_file is not None: #if there is some file uploaded here, then do the following 
-  img = Image.open(uploaded_file) #reads the file uploaded (similar to cv2.imread)
-  st.write("") 
-  if st.button("PREDICT"):
-    st.write("Result :")
-    info = pytesseract.image_to_string(img) #ocr is applied using pytesseract
-    st.title(info)
+        img = Image.open(uploaded_file)  #reads the image, similar to imread
+        
+        st.image(img, caption='Uploaded Image',use_column_width=True)  #displays image, caption is uploaded image, uses image width 
+
+        st.write("")   #print blank space
+
+        if st.button('PREDICT'):    #creates one button called predict
+                st.write("Result...")   #prints result 
+                extractedInformation = pytesseract.image_to_string(img)   #pytesseract converts img to text and prints
+                st.title(extractedInformation)
